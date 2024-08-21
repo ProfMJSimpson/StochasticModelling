@@ -1,4 +1,4 @@
-using Plots, SpecialFunctions, Random
+using Plots, SpecialFunctions, Random, LaTeXStrings, DifferentialEquations
 gr()
 
 function Stochastic(LX,LY,Tplot,t1,A0,MC,PM,α)
@@ -132,10 +132,10 @@ end
 function diff!(du,u,p,t)
     dx,N,D,v=p 
     for i in 2:N-1
-    du[i]=D*(u[i-1]-2*u[i]+u[i+1])/dx^2 -v*(u[i+1]*(1-u[i+1])-u[i-1]*(1-u[i-1]))/(2*dx)
+    du[i]=D*(u[i-1]-2*u[i]+u[i+1])/dx^2-v*(u[i+1]*(1-u[i+1])-u[i-1]*(1-u[i-1]))/(2*dx)
     end
-    du[1]=D*(u[2]-u[1])/dx^2 
-    du[N]=D*(u[N-1]-u[N])/dx^2 
+    du[1]=D*(u[2]-u[1])/dx^2-v*u[2]*(1-u[2])/dx 
+    du[N]=D*(u[N-1]-u[N])/dx^2-v*u[N-1]*(1-u[N-1])/dx 
     end
       
         
@@ -168,6 +168,8 @@ T=1000
 Tplot=[0,T]
 MC=10
 h=50
+dx=0.5
+U0=1.0
 N=Int(round(LX/dx))+1;
 
 A0=zeros(LX,LY)

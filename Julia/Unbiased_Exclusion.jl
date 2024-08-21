@@ -1,4 +1,4 @@
-using Plots, SpecialFunctions, Random
+using Plots, SpecialFunctions, Random, LaTeXStrings
 gr()
 
 function Stochastic(LX,LY,Tplot,t1,A0,MC,PM)
